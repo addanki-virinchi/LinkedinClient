@@ -6,16 +6,15 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 import time
 import undetected_chromedriver as uc 
- # Ensure this is installed
 import csv
 import pandas as pd
 
-# Initialize the undetected Chrome driver
+
 driver = uc.Chrome()
 
 df = pd.read_csv('CAA.csv', header=None)
 
-# Convert the first column (index 0) to a list
+
 urls = df[0].tolist()
 
 
@@ -39,14 +38,14 @@ with open("member_data.csv", mode="w", newline="", encoding='utf-8') as file:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "password"))).send_keys(password)
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))).click()
         
-        # Wait for login to complete
+        
         time.sleep(3)
         
-        # Loop through each URL
+        
         for url in urls:
             try:
                 driver.get(url)
-                time.sleep(3)  # Increased wait time for page load
+                time.sleep(3)  
                 
                 try:
                     # Member Name - Using XPath to get text node after h5
@@ -96,9 +95,9 @@ with open("member_data.csv", mode="w", newline="", encoding='utf-8') as file:
                     
                 except Exception as e:
                     print(f"Error extracting specific data from {url}: {str(e)}")
-                    # Try alternative method using pure XPath
+                    
                     try:
-                        # Alternative XPath method
+                       
                         member_name = driver.find_element(By.XPATH, "//div[contains(@class, 'col-md-6')][.//h5[contains(text(),'Member Name')]]").text.replace('Member Name', '').strip()
                         mobile = driver.find_element(By.XPATH, "//div[contains(@class, 'col-md-6')][.//h5[contains(text(),'Mobile')]]/p").text.strip()
                         try:
