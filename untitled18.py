@@ -19,8 +19,8 @@ df = pd.read_csv('CAA.csv', header=None)
 urls = df[0].tolist()
 
 
-username = "virinchiaddanki@gmail.com"
-password = "Virinchi"
+username = ""
+password = ""
 login_url = "https://caconnect.icai.org/login"
 
 
